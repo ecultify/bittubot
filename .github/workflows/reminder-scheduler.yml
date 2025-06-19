@@ -10,11 +10,5 @@ jobs:
     steps:
       - name: Trigger n8n reminder check
         run: |
-          curl -X POST \
-            "${{ secrets.N8N_WEBHOOK_URL }}" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "source": "github_actions",
-              "timestamp": "'$(date -u +%s)'",
-              "action": "check_pending_reminders"
-            }'
+          curl -X GET \
+            "${{ secrets.N8N_WEBHOOK_URL }}?source=github_actions&timestamp=$(date -u +%s)&action=check_pending_reminders"
